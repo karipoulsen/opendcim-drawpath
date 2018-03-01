@@ -1,5 +1,3 @@
-<!doctype html>
-<html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>DRAWPATH - openDCIM 4.3.1 extension</title>
@@ -159,5 +157,5 @@ css classes and/or DOM hierarchy. Errors of this sort should all originate from 
 
 
 </body>
-</html>
+
 
