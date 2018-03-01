@@ -2,7 +2,7 @@
 <p>This package extends openDCIM functionality so it can display cable paths on drawings, including network installation endpoints for client computers.</p>
 <p>Have a look at <a href="www.openDCIM.org">openDCIM</a></p>
 <p>I can be found here: <a href="mailto:kpo@kvf.fo">kpo@kvf.fo</a></p>
-
+<p>version 1.0</p>
 <p>We use openDCIM and this extension at our facilitites - the National Broadcaster of the Faroe Islands (kvf.fo)<br>
 	Basically, we use it to document and maintain our complete cabling infrastructure: network, audio and video </p>
 <p>This package requires just one simple modification in one file in openDCIM. The system plugs into openDCIM on the client side.(javascript and jquery) </p>
@@ -139,10 +139,5 @@ so you have to look around for a bit.</p>
 <p>The extension revolves around JS client-side logic, and chains to the openDCIM DOM. Problems might arise if updates in openDCIM alter 
 css classes and/or DOM hierarchy. Errors of this sort should all originate from <strong>drawpath.js</strong>. Have a look and modify.</p>
 
-<p>Concact us if you're not up to have a look yourself.</p>
+<p>Contact us if you're not up to have a look yourself.</p>
 <p>And, by the way, please drop us a note if you find some problem, workarounds, suggestions, etc.</p>
-
-
-
-
-
