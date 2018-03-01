@@ -1,5 +1,10 @@
 <h1>DRAWPATH - openDCIM 4.3.1 cable path extension</h1>
 <p>This package extends openDCIM functionality so it can display cable paths on drawings, including network installation endpoints for client computers.</p>
+<p>Have a look at <a href="www.openDCIM.org">openDCIM</a></p>
+<p>I can be found here: <a href="mailto:kpo@kvf.fo">kpo@kvf.fo</a></p>
+
+<p>We use openDCIM and this extension at our facilitites - the National Broadcaster of the Faroe Islands (kvf.fo)<br>
+	Basically, we use it to document and maintain our complete cabling infrastructure: network, audio and video </p>
 <p>This package requires just one simple modification in one file in openDCIM. The system plugs into openDCIM on the client side.(javascript and jquery) </p>
 <p>We haven't tested the 4.4 and 4.2 releases yet, but we expect no major issues.</p>
 <p>These are the files:</p>
@@ -58,16 +63,16 @@ echo '
 		<li>Define a set of custom colors to use. A few are pre-installed - modify or delete.</li>
 	</ul>
 	<li>You're good to go. Go to a device for which you'd like to add a path.. click the 'Edit Path..' button next to the selected custom attribute.<br>
-		Have a look at the Editor section below..
+		Please have a look at the Editor section below..
 	</li>
+	</ul>
 <p><em>Note: On a Windows installation, you might have to change some parameters to backslash for file-related functions in <strong>dpcore.php</strong> .. <em></p>
 
-</ul>
 <h3>Uninstall</h3>
 <p>Basically the reverse of the installation:</p>
 <ul>
 	<li>Remove the <pre>&lt;script type="text/javascript" src="drawpath/drawpath.js"&gt;&lt;/script&gt;</pre>
-	in <strong>header.inc.php</strong> (or the files mentioned under installation if you opted for that installation alternative.</li>
+	in <strong>header.inc.php</strong> (or the files mentioned under installation if you opted for that installation alternative).</li>
 	<li>Delete the installation directory.</li>
 	<li>Possibly, remove the custom attribute.</li>
 	<li>Delete the entries in the configuration page.<br />
@@ -110,8 +115,7 @@ display.</p>
 	<li>Drag the rectangle to the position you want.</li>
 	<li>Resize as needed.</li>
 </ul>
-<em>Note that the resize handle differs from the master and the rest: when moving the handle, the path itself is resized, while on the other
-			drawings, the path is scaled, and always with the same aspect ratio - it only responds to left-right movements.</em>
+<em>Note that the resize handle differs from the master and the rest: when moving the handle, the path itself is resized, while on the other drawings, the path is scaled, and always with the same aspect ratio - it only responds to left-right movements.</em>
 
 <h4>The Drawings Dialog</h4>
 <p>When activated for the first time on a device, and additional dialog shows up, prompting you to select one or more drawing to place the device path on.</p>
@@ -132,7 +136,7 @@ All other drawings that you have selected for this device use the same path, wit
 <p>If something breaks, or appears weird, always look first in the console window of the browser. openDCIM generates plenty of errors of its own,
 so you have to look around for a bit.</p>
 
-<p>The extension revolves around JS client-side logic, and chains to the openDCIM DOM. Problems might arise if updates in openDCIM alter <br>
+<p>The extension revolves around JS client-side logic, and chains to the openDCIM DOM. Problems might arise if updates in openDCIM alter 
 css classes and/or DOM hierarchy. Errors of this sort should all originate from <strong>drawpath.js</strong>. Have a look and modify.</p>
 
 <p>Concact us if you're not up to have a look yourself.</p>
