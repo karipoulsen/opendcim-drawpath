@@ -48,8 +48,7 @@ echo '
 		<li>dc_stats.php</li>
 		<li>container_stats.php</li>
 		<li>devices.php</li>
-	</ul> files in the header section instead of modifying header.inc.pgp.</em>
-
+	</ul> files in the header section instead of modifying header.inc.php.</em>
 	</li>
 	<li>If you've used a different installation directory name, you must modify the corresponding variables in <strong>drawpath.js</strong>
 	These are all located at the top of the file. While you're there you also might want to modify caption strings and other settings.</li>
