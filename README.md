@@ -1,19 +1,3 @@
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>DRAWPATH - openDCIM 4.3.1 extension</title>
-    <style>
-	body{
-		margin:80px;
-		font-family:Arial;
-		width:900px;
-
-	}
-	pre{
-		background-color:lightgray;
-	}
-    </style>
-</head>
-<body>
 <h1>DRAWPATH - openDCIM 4.3.1 cable path extension</h1>
 <p>This package extends openDCIM functionality so it can display cable paths on drawings, including network installation endpoints for client computers.</p>
 <p>This package requires just one simple modification in one file in openDCIM. The system plugs into openDCIM on the client side.(javascript and jquery) </p>
@@ -156,6 +140,6 @@ css classes and/or DOM hierarchy. Errors of this sort should all originate from 
 <p>And, by the way, please drop us a note if you find some problem, workarounds, suggestions, etc.</p>
 
 
-</body>
+
 
 
