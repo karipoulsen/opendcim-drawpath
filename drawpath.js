@@ -484,6 +484,7 @@ function setupConfiguration()
 	var frm= $('#dca').clone();
 	$(frm).html('<h3>DrawPath Settings</h3>');
 	$(frm).attr('id','drawpath');
+	$('#configtabs').tabs('refresh');
 	$('#configtabs').append(frm);
 	var dca=$('#customattrs > div');
 	var sel='<div>' + ConfigurationCA + '</div><div><select id="DPCustomAttributeId" name="DPCustomAttributeId">';
