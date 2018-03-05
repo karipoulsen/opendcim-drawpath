@@ -1,31 +1,17 @@
-<!doctype html>
 <html>
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>DRAWPATH - openDCIM 4.3.1 extension</title>
-    <style>
-	body{
-		margin:80px;
-		font-family:Arial;
-		width:900px;
-
-	}
-	pre{
-		background-color:lightgray;
-	}
-    </style>
-</head>
-<body>
+<body style="margin:80px;width:900px">
 <h1>DRAWPATH - openDCIM 4.3.1 cable path extension</h1>
 <p>This package extends openDCIM functionality so it can display cable paths on drawings, including network installation endpoints for client computers.</p>
+<p>Have a look at <a href="www.openDCIM.org">openDCIM</a></p>
+<p>I can be reached at <a href="mailto:kpo@kvf.fo">kpo@kvf.fo</a></p>
 <p>This package requires just one simple modification in one file in openDCIM. The system plugs into openDCIM on the client side.(javascript and jquery) </p>
 <p>We haven't tested the 4.4 and 4.2 releases yet, but we expect no major issues.</p>
 <p>These are the files:</p>
 <ul>
 	<li><strong>README.html</strong> This file.</li>
-	<li><strong>dpcore.php</strong> Base server logic, and a few global settings.</li>
+	<li><strong>dpcore.php</strong> Base server logic.</li>
 	<li><strong>drawpath.php</strong> Serves AJAX requests from the client.</li>
-	<li><strong>drawpath.js</strong> Javascript to be included in some openDCIM pages.</li>
+	<li><strong>drawpath.js</strong> Javascript to be included in openDCIM.</li>
 	<li><strong>dpeditor.php</strong>The layout editor.</li>
 </ul>
 <h3>Features</h3>
@@ -60,13 +46,13 @@ echo '
 &lt;/div&gt;
 ';
 </pre>
-	<em>Alternativeliy, if you don't like the drawpath stuff to be incluced in every page, you could just modify a few files directly: Include the script reference in the
+	Alternativeliy, if you don't like the drawpath stuff to be incluced in every page, you could just modify a few files directly: Include the script reference in the
 	<ul>
 		<li>configuration.php</li>
 		<li>dc_stats.php</li>
 		<li>container_stats.php</li>
 		<li>devices.php</li>
-	</ul> files in the header section instead of modifying header.inc.pgp.</em>
+	</ul> files in the header section instead of modifying header.inc.php.
 
 	</li>
 	<li>If you've used a different installation directory name, you must modify the corresponding variables in <strong>drawpath.js</strong>
@@ -79,14 +65,15 @@ echo '
 	<li>You're good to go. Go to a device for which you'd like to add a path.. click the 'Edit Path..' button next to the selected custom attribute.<br>
 		Have a look at the Editor section below..
 	</li>
-<p><em>Note: On a Windows installation, you might have to change some parameters to backslash for file-related functions in <strong>dpcore.php</strong> .. <em></p>
-
 </ul>
+<p><em>Note: On a Windows installation, you might have to change some parameters to backslash for file-related functions in <strong>dpcore.php</strong> .. </em></p>
+
+
 <h3>Uninstall</h3>
 <p>Basically the reverse of the installation:</p>
 <ul>
 	<li>Remove the <pre>&lt;script type="text/javascript" src="drawpath/drawpath.js"&gt;&lt;/script&gt;</pre>
-	in <strong>header.inc.php</strong> (or the files mentioned under installation if you opted for that installation alternative.</li>
+	in <strong>header.inc.php</strong> (or the files mentioned under installation if you opted for that installation alternative).</li>
 	<li>Delete the installation directory.</li>
 	<li>Possibly, remove the custom attribute.</li>
 	<li>Delete the entries in the configuration page.<br />
@@ -101,7 +88,7 @@ Since devices are meant to be installed in cabinets that are located in datacent
 While not very elegant, we still get to use openDCIM connection facilitities as well as the patching diagrams.</p>
 <p>The usual way is to define a 'virtual' datacenter and have a cabinet for each main section to describe, such as a building, or a floor layout of a building</p>
 
-<p>Usually, network entpoints are grouped in sets of two or more ports, so we define a patch panel for each bundle, with appropriate number of<br>
+<p>Usually, network entpoints are grouped in sets of two or more ports, so we define a patch panel for each bundle, with appropriate number of
 ports that can be connected the usual way.</p>
 
 <p>The devices that are to have cable paths attached to them must have a custom attribute defined - the one defined in installation.</p>
@@ -151,11 +138,11 @@ All other drawings that you have selected for this device use the same path, wit
 <p>If something breaks, or appears weird, always look first in the console window of the browser. openDCIM generates plenty of errors of its own,
 so you have to look around for a bit.</p>
 
-<p>The extension revolves around JS client-side logic, and chains to the openDCIM DOM. Problems might arise if updates in openDCIM alter <br>
+<p>The extension revolves around JS client-side logic, and chains to the openDCIM DOM. Problems might arise if updates in openDCIM alter
 css classes and/or DOM hierarchy. Errors of this sort should all originate from <strong>drawpath.js</strong>. Have a look and modify.</p>
 
-<p>Concact us if you're not up to have a look yourself.</p>
-<p>And, by the way, please drop us a note if you find some problem, workarounds, suggestions, etc.</p>
+<p>Contact me if you're not up to have a look yourself.</p>
+<p>And, by the way, please drop a note if you find some problem, workarounds, suggestions, etc.</p>
 
 
 </body>
