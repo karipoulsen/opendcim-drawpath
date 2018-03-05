@@ -63,11 +63,14 @@ function getDevicesForMap($key,$prefix)
 
 function mapDeviceData($data)
 {
-	// $data is a semicolon separated list, some of these elements are again lists, comma separated
+	// $data is a semicolon separated list, some of these elements are again lists, comma separated.
 	// first is path color
 	// next is the coordinate set itself - an array of X and Y numbers, evens are X, odds are Y
 	// last, there are a number of device mappings that describe what drawing this device appears on, 
 	// together with coordinate offsets and scaling
+	// first, there is the key to the drawing, prefixed with a type - 'd' or 'c' - corresponding to DataCenter and Container, respectively
+	// second, there's the master indicator - 1 or 0
+	// third, there is a drawing offset, X and Y, and last there is a scaling factor. The scaling is always 1 for master drawings
 	// (all of this could just be stored as JSON, but custom attribute values are restricted..)
 	$res=array();
 	$res['maps']=array();

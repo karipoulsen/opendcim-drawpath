@@ -6,7 +6,7 @@
 //console.log('DrawPath extension loaded..');
 
 // change this if installation directory differs from default
-var IDIR = 'kvf-extension/';
+var IDIR = 'drawpath/';
 var _RPC = 'drawpath.php';
 var MAP = 'dpeditor.php';
 var RPC = IDIR + _RPC;
@@ -22,8 +22,9 @@ var ConfigurationCA="Select custom attribute to store map settings.";
 
 // other stuff
 var EditorPointSize = 12;  // how big is the dragging handle for point operations.
-var PathMinWidth=2;
-var PathMaxWidth=14;
+var PathMinWidth=3;
+var PathMaxWidth=15;
+
 // Main entry point for DrawPath
 $(document).ready(function(){
 	//console.log('DrawPath init..');
@@ -37,7 +38,7 @@ $(document).ready(function(){
 	}
 	if(window.location.pathname.indexOf('configuration')!=-1){
 	//	console.log('configuration view');
-		setupConfiguration();
+		setupConfiguration();		
 	}
 	if(window.location.pathname.indexOf('devices')!=-1){
 	//	console.log('device view');
@@ -325,10 +326,8 @@ function mapEditDragPoint()
 	_mapdata.coords[id]=pos.left+EditorPointOffset - p.offX;
 	_mapdata.coords[id+1]=pos.top+EditorPointOffset - p.offY;
 	mapEditDraw(true);
-	//console.log(pos);
 }
 function mapEditDragRect(){
-	//console.log($(this));
 	var pos=$(this).position();
 	var p=getMap();
 	p.offX=pos.left;
@@ -338,7 +337,6 @@ function mapEditDragRect(){
 }
 
 function mapEditResizeRect(){
-//	console.log($(this));
 	var p=getMap();
 	var dim=mapEditGetRect();
 	var pos=$(this).position();
@@ -472,7 +470,6 @@ function setupConfiguration()
 		}
 	});
 
-	//console.log($('#configtabs > ul'));
 	var menu = $('#configtabs > ul');
 	// clone a tab element, modify attributes
 	var tx=$($(menu).children()[1]).clone();
@@ -504,7 +501,6 @@ function setupConfiguration()
 		data:{rpc:'config'},
 		dataType:'json',
                 success:function(result){
-			//console.log(result);
 			$('#DPCustomAttributeId option[value=' + result.DBCustomAttributeId).attr('selected','selected');
 			var tab='<div><div></div><div>Caption</div><div>Color</div></div>';
 			
@@ -566,7 +562,6 @@ function deleteColorRow()
 
 function addColorRow()
 {
-	//console.log($('#DPColors > div'));
 	var cols=$('#DPColors > div');
 	if(cols.length==0)
 		var nid='DPColor01';
@@ -612,9 +607,12 @@ function setupContainer()
 
 function loadData(containerImage,zindex)
 {
+	var buildPanel=true;
 	if(_data!=null) return;
 	_data=1;
-	var style='<style> .dpanchor{position:absolute;width:14px;height:14px;border-radius:4px;border: 1px solid grey}</style>';
+	var style="<style> .dpanchor{position:absolute;width:14px;height:14px;border-radius:4px;border: 1px solid grey}\n";
+	style +=".toolb{position:absolute;width:200px;background-color:lightgrey;left:300px;top:35px}\n</style>";
+	var tool='<div class="toolb"><div>Toolbox</div>';
 	$('body').append(style);
 	$.ajax({
 		url:RPC,
@@ -632,16 +630,60 @@ function loadData(containerImage,zindex)
 				var dev = _data[i].device;
 				var lab = _data[i].label;
 				var cid = 'dpa' + i;
-				var nstr ='<div style="left:' +cx +'px;top:'+cy+'px;background-color:' + _data[i].color + zindex + '" class="dpanchor">';
-				nstr +='<a href="devices.php?DeviceID=' + dev + '" title="' + lab + '" id="' + cid + '" style="width:100%;height:100%;display:block"></a></div>';
+				var nstr ='<div id="' + cid + '" style="left:' +cx +'px;top:'+cy+'px;background-color:' + _data[i].color + zindex + '" class="dpanchor">';
+				nstr +='<a href="devices.php?DeviceID=' + dev + '" title="' + lab + '" style="width:100%;height:100%;display:block"></a></div>';
 				$(containerImage).append(nstr);
 				$('.dpanchor').hover(hoverIn,hoverOut);
-				drawCoords();
+				if(buildPanel){
+					var ln='<div class="toolitm"><input id="tb'+i+'" type="checkbox" checked="checked"><label for="tb' + i + '">' + lab + '</label></div>';
+					tool +=ln;
+				}
+				var ccol= window.getComputedStyle($('#' + cid)[0],null).getPropertyValue('background-color');
+				var realw=Math.max(_data[i].ports,PathMinWidth);
+				realw=Math.min(realw,PathMaxWidth);
+				var steps= realw /2;
+				var maxshade=0.7;
+				var rsteps = maxshade / steps;
+				var wsteps= realw /steps;
+				var grad=new Array();
+				var adder=0.0;
+				while(adder<maxshade){
+					var tcol=shadeRGBColor(ccol,adder);
+					grad.push({col:tcol,wi:realw});
+					adder +=rsteps;
+					realw-=wsteps;
+				}
+				_data[i].grads=grad;
+			}
+			drawCoords();
+			if(buildPanel){
+				tool+='</div>';
+				$('.center').append(tool);
+				$('.toolb').draggable();
+				$('.toolitm > input').click(doswitch);
 			}
 		}
 	});
 }
-
+function shadeRGBColor(col, percent){
+//	return 'rgb(11,12,13)';
+	var f=col.split(",");
+	var t=percent<0?0:255;
+	var p=percent<0?percent*-1:percent;
+	var R=parseInt(f[0].slice(4));
+	var G=parseInt(f[1]);
+	var B=parseInt(f[2]);
+	return "rgb("+(Math.round((t-R)*p)+R)+","+(Math.round((t-G)*p)+G)+","+(Math.round((t-B)*p)+B)+")";
+	
+}
+function doswitch()
+{
+	console.log($(this));
+	var id=parseInt($(this).attr('id').substr(2));
+	console.log(id);
+	_data[id].show=($(this)[0].checked);
+	drawCoords();
+}
 function drawCoords()
 {
 	if(_data==null) return;
@@ -658,35 +700,36 @@ function drawCoords()
 
 function drawOne(can,data,selected)
 {
+	if(data.hasOwnProperty('show')){
+		if(!data.show) return;
+	}
 	var port=Math.max(data.ports,PathMinWidth);
 	port = Math.min(port,PathMaxWidth);
 	can.save;
-	if(selected){
-		can.lineWidth= port+3;
-		can.strokeStyle = data.color
-		can.shadowOffsetX=5;
-		can.shadowOffsetY=5;
-		can.shadowBlur=12;
-		can.shadowColor='rgba(0,0,0,0.6';
-	}else{
-		can.shadowColor='rgba(0,0,0,0)';
-		can.lineWidth=port;
-		can.strokeStyle= data.color;
-	}
 	can.lineJoin='round';
-	can.beginPath();
-	can.moveTo(data.coords[0]*data.scale+data.offX ,data.coords[1]*data.scale + data.offY);
-	for(var j=2;j<data.coords.length;j+=2)
-		can.lineTo(data.coords[j]*data.scale + data.offX,data.coords[j+1]*data.scale + data.offY);
-
-	can.stroke();
-	var cx = data.coords[0]*data.scale + data.offX -6;
-	var cy = data.coords[1]*data.scale + data.offY -6;
+	can.lineCap='round';
+	for(var i=0;i<data.grads.length;i++){
+		can.shadowColor='rgba(0,0,0,0)';
+		if(i==0 && selected)
+		{
+			can.shadowOffsetX=8;
+			can.shadowOffsetY=8;
+			can.shadowBlur=9;
+		        can.shadowColor='rgba(80,80,80,0.8';
+		}
+		can.beginPath();
+		can.lineWidth=Math.max(data.grads[i].wi,1);
+		can.strokeStyle=data.grads[i].col;
+		can.moveTo(data.coords[0]*data.scale+data.offX ,data.coords[1]*data.scale + data.offY);
+		for(var j=2;j<data.coords.length;j+=2)
+			can.lineTo(data.coords[j]*data.scale + data.offX,data.coords[j+1]*data.scale + data.offY);
+		can.stroke();
+	}
 	can.restore();
 }
 
 function hoverIn(){
-	var id=$(this).children().first().attr('id').substr(3);
+	var id=$(this).attr('id').substr(3);
 	var mcan=$('#DPCanvas')[0];
         var can=mcan.getContext('2d');
 	drawCoords();
