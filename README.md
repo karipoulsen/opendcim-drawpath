@@ -2,7 +2,7 @@
 <body style="margin:80px;width:900px">
 <h1>DRAWPATH - openDCIM 4.3.1 cable path extension</h1>
 <p>This package extends openDCIM functionality so it can display cable paths on drawings, including network installation endpoints for client computers.</p>
-<p>Have a look at <a href="www.openDCIM.org">openDCIM</a></p>
+<p>Have a look at <a href="https://opendcim.org">openDCIM</a></p>
 <p>I can be reached at <a href="mailto:kpo@kvf.fo">kpo@kvf.fo</a></p>
 <p>This package requires just one simple modification in one file in openDCIM. The system plugs into openDCIM on the client side.(javascript and jquery) </p>
 <p>We haven't tested the 4.4 and 4.2 releases yet, but we expect no major issues.</p>
