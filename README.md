@@ -52,16 +52,14 @@ echo '
 		<li>dc_stats.php</li>
 		<li>container_stats.php</li>
 		<li>devices.php</li>
-	</ul> files in the header section instead of modifying header.inc.php.
-
-	</li>
+	</ul> files in the header section instead of modifying header.inc.php.</li>
 	<li>If you've used a different installation directory name, you must modify the corresponding variables in <strong>drawpath.js</strong>
 	These are all located at the top of the file. While you're there you also might want to modify caption strings and other settings.</li>
 	<li>Crank up openDCIM, go to the configuration page. There should now be a tab called 'DrawPath'.
 	<ul>
 		<li>Select the custom attribute to use for DrawPath</li>
 		<li>Define a set of custom colors to use. A few are pre-installed - modify or delete.</li>
-	</ul>
+	</ul></li>
 	<li>You're good to go. Go to a device for which you'd like to add a path.. click the 'Edit Path..' button next to the selected custom attribute.<br>
 		Have a look at the Editor section below..
 	</li>
